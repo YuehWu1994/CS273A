@@ -7,3 +7,5 @@ unzip gitglove.6B.zip
 cd ..
 
 pip install allennlp
+pip install ipdb
+python download_nltk_punk.py
