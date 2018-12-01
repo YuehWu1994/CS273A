@@ -1,0 +1,9 @@
+*.pyc
+*.swp
+*.log
+*.tsv
+.idea/
+*.th
+*.pkl
+*.txt
+*.jsonl
