@@ -16,5 +16,5 @@ If necessary, please modify the relative data path
 ###below are the default data path.
 
 SCRATCH_PREFIX='../glue_data/'
-
+\n
 WORD_EMBS_FILE="../glove/glove.6B/glove.6B.50d.txt"
