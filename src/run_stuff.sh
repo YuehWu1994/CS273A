@@ -30,7 +30,7 @@ d_hid_cls=512
 max_seq_len=40
 VOCAB_SIZE=30000
 #WORD_EMBS_FILE="${SCRATCH_PREFIX}/raw_data/GloVe/glove.840B.300d.txt"
-WORD_EMBS_FILE="../glove/glove.6B/glove.6B.50d.txt"
+WORD_EMBS_FILE="../glove/glove.6B/glove.6B.300d.txt"
 
 d_word=300
 d_hid=512
