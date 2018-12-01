@@ -8,4 +8,5 @@ cd ..
 
 pip install allennlp
 pip install ipdb
+cd src/
 python download_nltk_punk.py
