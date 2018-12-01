@@ -4,7 +4,7 @@ The project is forked from GLUE-baselines. For more detail, please refer to http
 
 ## Dependency
 
-The project depends on the GloVE and glue_data. Please download the GloVE data externally and also execute download_glue_data.py first.
+The project depends on the GloVE and glue_data. Please download the GloVE data externally https://nlp.stanford.edu/projects/glove/ and also execute download_glue_data.py first.
 
 
 ## How to Run
