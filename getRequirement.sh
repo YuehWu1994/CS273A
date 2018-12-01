@@ -1,9 +1,11 @@
 
 python download_glue_data.py
-wget http://nlp.stanford.edu/data/glove.6B.zip
-mv glove.6B.zip glove
 cd glove
+mkdir glove.6B
+cd  glove.6B
+wget http://nlp.stanford.edu/data/glove.6B.zip
 unzip glove.6B.zip
+cd ..
 cd ..
 
 pip install allennlp
