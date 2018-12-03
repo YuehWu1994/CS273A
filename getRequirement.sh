@@ -8,7 +8,8 @@ unzip glove.6B.zip
 cd ..
 cd ..
 
-pip install allennlp
 pip install ipdb
+pip install allennlp
+
 cd src/
 python download_nltk_punk.py
