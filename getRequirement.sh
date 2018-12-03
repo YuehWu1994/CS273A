@@ -9,7 +9,9 @@ cd ..
 cd ..
 
 pip install ipdb
-pip install allennlp
+pip install allennlp==0.4
+pip install tensorboardX
+
 
 cd src/
 python download_nltk_punk.py
