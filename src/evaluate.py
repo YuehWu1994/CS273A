@@ -48,7 +48,10 @@ def evaluate(model, tasks, iterator, cuda_device, split="val"):
             dataset = task.train_data
         elif split == "test":
             dataset = task.test_data
-        generator = iterator(dataset, num_epochs=1, shuffle=False, cuda_device=cuda_device)
+        if cuda_device>=0:
+            generator = iterator(dataset, num_epochs=1, shuffle=False, cuda_device=cuda_device)
+        else:
+            generator = iterator(dataset, num_epochs=1, shuffle=False)
         generator_tqdm = tqdm.tqdm(generator, total=iterator.get_num_batches(dataset), disable=True)
         for batch in generator_tqdm:
             #tensor_batch = arrays_to_variables(batch, cuda_device, for_training=False)

@@ -693,10 +693,11 @@ class SamplingMultiTaskTrainer:
         task_infos = {task.name: {} for task in tasks}
         for task in tasks:
             task_info = task_infos[task.name]
-            if self._cuda_device >=0:
-                tr_generator = iterator(task.train_data, num_epochs=None, cuda_device=self._cuda_device)
-            else:
-                tr_generator = iterator(task.train_data, num_epochs=None)
+            # if self._cuda_device >=0:
+            #     tr_generator = iterator(task.train_data, num_epochs=None, cuda_device=self._cuda_device)
+            # else:
+            #     tr_generator = iterator(task.train_data, num_epochs=None)
+            tr_generator = iterator(task.train_data, num_epochs=None)
             task_info['n_tr_batches'] = iterator.get_num_batches(task.train_data)
             task_info['tr_generator'] = tr_generator
             task_info['loss'] = 0.0
