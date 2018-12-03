@@ -34,10 +34,10 @@ WORD_EMBS_FILE="../glove/glove.6B/glove.6B.300d.txt"
 
 d_word=300
 d_hid=512
-glove=1
-ELMO=0
-deep_elmo=0
-elmo_no_glove=0
+glove=0
+ELMO=1
+deep_elmo=1
+elmo_no_glove=1
 COVE=0
 
 PAIR_ENC="simple"
