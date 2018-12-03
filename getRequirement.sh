@@ -9,6 +9,7 @@ cd ..
 cd ..
 
 pip install ipdb
+pip install torch==0.4
 pip install allennlp==0.4
 pip install tensorboardX
 
