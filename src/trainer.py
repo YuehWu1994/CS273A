@@ -220,8 +220,10 @@ class MultiTaskTrainer:
             task_info['n_val_batches'] = n_val_batches
             print(optimizer_params['lr'])
             print(optimizer_params['weight_decay'])
+            # task_info['optimizer'] = Optimizer.from_params(parameters,
+            #                                                copy.deepcopy(optimizer_params))
             task_info['optimizer'] = Optimizer.from_params(parameters,
-                                                           copy.deepcopy(optimizer_params))
+                                                            optimizer_params)
             task_info['scheduler'] = LearningRateScheduler.from_params(task_info['optimizer'],
                                                                        copy.deepcopy(scheduler_params))
             task_info['stopped'] = False
