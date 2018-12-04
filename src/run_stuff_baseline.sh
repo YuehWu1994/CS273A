@@ -24,7 +24,7 @@ LOAD_PREPROC=1
 load_epoch=-1
 
 train_tasks='all' # cola sst mrpc 
-eval_tasks='all'
+eval_tasks='none'
 CLASSIFIER=mlp
 d_hid_cls=512
 max_seq_len=40
@@ -61,8 +61,7 @@ BPP_BASE=10
 VAL_INTERVAL=10
 MAX_VALS=100
 TASK_ORDERING="random"
-#weighting_method="uniform"
-weighting_method="proportional"
+weighting_method="uniform"
 scaling_method='none'
 
 while getopts 'ikmn:r:S:s:tvh:l:L:o:T:E:O:b:H:p:edcgP:qB:V:M:D:C:X:GI:N:y:K:W:' flag; do

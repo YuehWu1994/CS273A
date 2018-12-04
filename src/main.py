@@ -179,6 +179,7 @@ def main(arguments):
         log.info("Skipping training.")
         best_epochs = {}
 
+    print("@@@ MULTI_TASK VAL @@@")    
     # train just the classifiers for eval tasks
     for task in eval_tasks:
         pred_layer = getattr(model, "%s_pred_layer" % task.name)
