@@ -17,7 +17,7 @@ GPUID=0
 SEED=19
 no_tqdm=0
 
-SHOULD_TRAIN=1
+SHOULD_TRAIN=0
 LOAD_MODEL=0
 LOAD_TASKS=1
 LOAD_PREPROC=1
@@ -26,15 +26,15 @@ load_epoch=-1
 train_tasks='all' # cola sst mrpc 
 eval_tasks='all'
 CLASSIFIER=mlp
-d_hid_cls=512
+d_hid_cls=256 #d_hid_cls=512
 max_seq_len=40
-VOCAB_SIZE=30000
+VOCAB_SIZE=20000 #VOCAB_SIZE=30000
 #WORD_EMBS_FILE="${SCRATCH_PREFIX}/raw_data/GloVe/glove.840B.300d.txt"
 WORD_EMBS_FILE="../glove/glove.6B/glove.6B.50d.txt"
 
 #d_word=300
 d_word=50
-d_hid=512
+d_hid=256 #d_hid=512
 glove=0
 ELMO=1
 deep_elmo=1
@@ -47,10 +47,10 @@ n_layers_highway=0
 
 OPTIMIZER="sgd"
 LR=.1
-min_lr=1e-5
+min_lr=1e-6 #min_lr=1e-5
 dropout=.2
 LR_DECAY=.5
-patience=5
+patience=20 #patience=5
 task_patience=0
 train_words=0
 WEIGHT_DECAY=0.0
@@ -61,8 +61,7 @@ BPP_BASE=10
 VAL_INTERVAL=10
 MAX_VALS=100
 TASK_ORDERING="random"
-#weighting_method="uniform"
-weighting_method="proportional"
+weighting_method="proportional"  #weighting_method="uniform"
 scaling_method='none'
 
 while getopts 'ikmn:r:S:s:tvh:l:L:o:T:E:O:b:H:p:edcgP:qB:V:M:D:C:X:GI:N:y:K:W:' flag; do
