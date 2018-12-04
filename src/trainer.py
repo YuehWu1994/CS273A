@@ -218,7 +218,7 @@ class MultiTaskTrainer:
                 n_batches_per_pass = int(bpp_base * bpps[task_idx])
             task_info['n_batches_per_pass'] = n_batches_per_pass
             task_info['n_val_batches'] = n_val_batches
-            print(optimizer_params)
+            print(optimizer_params['type'])
             task_info['optimizer'] = Optimizer.from_params(parameters,
                                                            copy.deepcopy(optimizer_params))
             task_info['scheduler'] = LearningRateScheduler.from_params(task_info['optimizer'],
