@@ -130,7 +130,7 @@ class MultiTaskTrainer:
         if self._cuda_device >= 0:
             self._model = self._model.cuda(self._cuda_device)
 
-    def _check_history(self, metric_history, cur_score, should_decrease=False):
+    def _check_history(self, metric_history, task_infos, cur_score, should_decrease=False):
         '''
         Given a task, the history of the performance on that task,
         and the current score, check if current score is
@@ -148,8 +148,16 @@ class MultiTaskTrainer:
         if len(metric_history) > patience:
             if should_decrease:
                 out_of_patience = max(metric_history[-patience:]) <= cur_score
+                ### learning rate decay
+                if max(metric_history[-4:]) <= cur_score: 
+                    task_info['optimizer'].param_groups[0]['lr'] = task_info['optimizer'].param_groups[0]['lr'] * 0.5
+                    print("lr_decay")
             else:
                 out_of_patience = min(metric_history[-patience:]) >= cur_score
+                ### learning rate decay
+                if max(metric_history[-4:]) >= cur_score: 
+                    task_info['optimizer'].param_groups[0]['lr'] = task_info['optimizer'].param_groups[0]['lr'] * 0.5
+                    print("lr_decay")
 
         if best_so_far and out_of_patience: # then something is up
             pdb.set_trace()
@@ -367,7 +375,7 @@ class MultiTaskTrainer:
                         metric_history = metric_infos[task.val_metric]['hist']
                         metric_history.append(this_epoch_metric)
                         is_best_so_far, out_of_patience = \
-                                self._check_history(metric_history, this_epoch_metric,
+                                self._check_history(metric_history, task_infos, this_epoch_metric, 
                                                     task.val_metric_decreases)
                         if is_best_so_far:
                             logger.info("Best model found for %s.", task.name)
@@ -400,7 +408,7 @@ class MultiTaskTrainer:
                     metric_history = metric_infos[metric]['hist']
                     metric_history.append(this_epoch_metric)
                     is_best_so_far, out_of_patience = \
-                            self._check_history(metric_history, this_epoch_metric)
+                            self._check_history(metric_history, task_infos, this_epoch_metric)
                     if is_best_so_far:
                         logger.info("Best model found for %s.", task)
                         metric_infos[metric]['best'] = (epoch, all_val_metrics)
@@ -661,7 +669,7 @@ class SamplingMultiTaskTrainer:
         if self._cuda_device >= 0:
             self._model = self._model.cuda(self._cuda_device)
 
-    def _check_history(self, metric_history, cur_score, should_decrease=False):
+    def _check_history(self, metric_history, task_infos, cur_score, should_decrease=False):
         '''
         Given a task, the history of the performance on that task,
         and the current score, check if current score is
@@ -676,11 +684,21 @@ class SamplingMultiTaskTrainer:
             best_so_far = False
 
         out_of_patience = False
+
+
         if len(metric_history) > patience:
             if should_decrease:
                 out_of_patience = max(metric_history[-patience:]) <= cur_score
+                ### learning rate decay
+                if max(metric_history[-4:]) <= cur_score: 
+                    task_info['optimizer'].param_groups[0]['lr'] = task_info['optimizer'].param_groups[0]['lr'] * 0.5
+                    print("lr_decay")
             else:
                 out_of_patience = min(metric_history[-patience:]) >= cur_score
+                ### learning rate decay
+                if max(metric_history[-4:]) >= cur_score: 
+                    task_info['optimizer'].param_groups[0]['lr'] = task_info['optimizer'].param_groups[0]['lr'] * 0.5
+                    print("lr_decay")
 
         if best_so_far and out_of_patience:
             pdb.set_trace()
@@ -938,7 +956,7 @@ class SamplingMultiTaskTrainer:
             metric_history = metric_infos[metric]['hist']
             metric_history.append(this_epoch_metric)
             is_best_so_far, out_of_patience = \
-                    self._check_history(metric_history, this_epoch_metric)
+                    self._check_history(metric_history, task_infos, this_epoch_metric)
             if is_best_so_far:
                 logger.info("Best model found for %s.", task)
                 metric_infos[metric]['best'] = (epoch, all_val_metrics)
