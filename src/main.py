@@ -19,7 +19,7 @@ from trainer import MultiTaskTrainer, build_trainer
 from evaluate import evaluate
 import pdb
 
-## Monkey path for torch 0.3.1
+## Monkey patch for torch 0.3.1
 import torch._utils
 try:
     torch._utils._rebuild_tensor_v2
