@@ -2,7 +2,7 @@
 
 %cd CS273A/
 
-!sh getRequirement.sh
+!sh require.sh
 
 %cd src/
 

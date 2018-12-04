@@ -218,7 +218,7 @@ class MultiTaskModel(nn.Module):
         else:
             sent_emb = self.sent_encoder(input1)
             logits = pred_layer(sent_emb)
-            print(logits.shape)
+            #print(logits.shape)
         out = {'logits': logits}
         if label is not None:
             if isinstance(task, (STS14Task, STSBTask)):
@@ -437,7 +437,7 @@ class HeadlessSentEncoder(Model):
         sent_enc.data.masked_fill_(1 - sent_mask.byte().data, -float('inf'))
         #print(sent_enc.shape)
         #print(sent_enc.max(dim=1)[0])
-        print(sent_enc.max(dim=1)[0].shape)
+        #print(sent_enc.max(dim=1)[0].shape)
         # 64 2048
         return sent_enc.max(dim=1)[0]
 
