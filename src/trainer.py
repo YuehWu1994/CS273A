@@ -222,9 +222,8 @@ class MultiTaskTrainer:
             # print(type(optimizer_params))
             # print(optimizer_params['lr'])
             # print(optimizer_params['weight_decay'])
-            print(list(parameters))
             print('parameters is a ',type(parameters),'\n=>')
-            print([param for name, param in list(parameters)])
+            print([param for name, param in parameters])
             task_info['optimizer'] = Optimizer.from_params(list(parameters),
                                                             copy.deepcopy(optimizer_params))
             #opt_params2 = Params({'type': optimizer_params['type'], 'lr': optimizer_params['type']})
