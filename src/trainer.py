@@ -150,13 +150,13 @@ class MultiTaskTrainer:
                 out_of_patience = max(metric_history[-patience:]) <= cur_score
                 ### learning rate decay
                 if max(metric_history[-4:]) <= cur_score: 
-                    task_info['optimizer'].param_groups[0]['lr'] = task_info['optimizer'].param_groups[0]['lr'] * 0.5
+                    task_infos['optimizer'].param_groups[0]['lr'] = task_infos['optimizer'].param_groups[0]['lr'] * 0.5
                     print("lr_decay")
             else:
                 out_of_patience = min(metric_history[-patience:]) >= cur_score
                 ### learning rate decay
                 if max(metric_history[-4:]) >= cur_score: 
-                    task_info['optimizer'].param_groups[0]['lr'] = task_info['optimizer'].param_groups[0]['lr'] * 0.5
+                    task_infos['optimizer'].param_groups[0]['lr'] = task_infos['optimizer'].param_groups[0]['lr'] * 0.5
                     print("lr_decay")
 
         if best_so_far and out_of_patience: # then something is up
@@ -1072,6 +1072,7 @@ class SamplingMultiTaskTrainer:
             task_states['global']['scheduler'] = None
         torch.save(task_states, os.path.join(self._serialization_dir,
                                              "task_state_epoch_{}.th".format(epoch)))
+        print(self._serialization_dir)
 
         metric_states = {}
         for metric_name, metric_info in self._metric_infos.items():
