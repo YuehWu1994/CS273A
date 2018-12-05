@@ -225,12 +225,16 @@ class MultiTaskTrainer:
             #print(list(parameters))
             print('parameters is a ',type(parameters),'\n=>')
             #print([(name,param) for name, param in list(parameters)])
+            p = []
             for parameter in parameters:
-                print(type(parameter))
-            task_info['optimizer'] = Optimizer.from_params(parameters,
-                                                            copy.deepcopy(optimizer_params))
-            #opt_params2 = Params({'type': optimizer_params['type'], 'lr': optimizer_params['type']})
-            #task_info['optimizer'] = Optimizer.from_params(parameters, copy.deepcopy(opt_params2))
+                if(!isinstance(parameter, tuple)):
+                    parameter = ("_", parameter)
+                p.append(parameter)
+
+            # task_info['optimizer'] = Optimizer.from_params(parameters,
+            #                                                 copy.deepcopy(optimizer_params))
+
+            task_info['optimizer'] = Optimizer.from_params(p, copy.deepcopy(optimizer_params))
             task_info['scheduler'] = LearningRateScheduler.from_params(task_info['optimizer'],
                                                                        copy.deepcopy(scheduler_params))
             task_info['stopped'] = False
