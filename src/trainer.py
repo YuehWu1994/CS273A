@@ -218,9 +218,11 @@ class MultiTaskTrainer:
                 n_batches_per_pass = int(bpp_base * bpps[task_idx])
             task_info['n_batches_per_pass'] = n_batches_per_pass
             task_info['n_val_batches'] = n_val_batches
-            print(optimizer_params)
-            print(optimizer_params['lr'])
-            print(optimizer_params['weight_decay'])
+            # print(optimizer_params)
+            # print(type(optimizer_params))
+            # print(optimizer_params['lr'])
+            # print(optimizer_params['weight_decay'])
+            print('parameters is a ',type(parameters),'\n=>',[name,param for name, param in parameters])
             task_info['optimizer'] = Optimizer.from_params(parameters,
                                                             copy.deepcopy(optimizer_params))
             #opt_params2 = Params({'type': optimizer_params['type'], 'lr': optimizer_params['type']})
