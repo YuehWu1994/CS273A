@@ -519,8 +519,8 @@ class MultiTaskTrainer:
             task_states[task_name]['optimizer'] = task_info['optimizer'].state_dict()
             task_states[task_name]['scheduler'] = task_info['scheduler']
             sched = task_info['scheduler']
-            sched_params = {'best': sched.best, 'num_bad_epochs': sched.num_bad_epochs,
-                            'cooldown_counter': sched.cooldown_counter}
+            sched_params = {} #{'best': sched.best, 'num_bad_epochs': sched.num_bad_epochs,
+                              # 'cooldown_counter': sched.cooldown_counter}
             task_states[task_name]['scheduler'] = sched_params
             task_states[task_name]['total_batches_trained'] = task_info['total_batches_trained']
             task_states[task_name]['stopped'] = task_info['stopped']
