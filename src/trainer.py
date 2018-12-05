@@ -227,7 +227,7 @@ class MultiTaskTrainer:
             #print([(name,param) for name, param in list(parameters)])
             p = []
             for parameter in parameters:
-                if(!isinstance(parameter, tuple)):
+                if(not isinstance(parameter, tuple)):
                     parameter = ("_", parameter)
                 p.append(parameter)
 
