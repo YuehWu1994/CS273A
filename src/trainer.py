@@ -704,16 +704,8 @@ class SamplingMultiTaskTrainer:
         if len(metric_history) > patience:
             if should_decrease:
                 out_of_patience = max(metric_history[-patience:]) <= cur_score
-                ### learning rate decay
-                if max(metric_history[-4:]) <= cur_score: 
-                    task_info['optimizer'].param_groups[0]['lr'] = task_info['optimizer'].param_groups[0]['lr'] * 0.5
-                    print("lr_decay")
             else:
                 out_of_patience = min(metric_history[-patience:]) >= cur_score
-                ### learning rate decay
-                if max(metric_history[-4:]) >= cur_score: 
-                    task_info['optimizer'].param_groups[0]['lr'] = task_info['optimizer'].param_groups[0]['lr'] * 0.5
-                    print("lr_decay")
 
         if best_so_far and out_of_patience:
             pdb.set_trace()
