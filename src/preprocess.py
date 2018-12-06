@@ -47,8 +47,8 @@ def build_tasks(args):
             tasks = []
         else:
             #tasks = task_list.split(',')
-            tasks = ['cola', 'sst', 'mrpc']
-            #tasks = ['cola']
+            #tasks = ['cola', 'sst', 'mrpc']
+            tasks = ['mrpc']
         return tasks
     train_task_names = parse_tasks(args.train_tasks)
     eval_task_names = parse_tasks(args.eval_tasks)
