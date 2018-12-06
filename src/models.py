@@ -40,7 +40,7 @@ sys.path.append(PATH_TO_COVE)
 
 # Elmo stuff
 ELMO_OPT_PATH = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_options.json" # pylint: disable=line-too-long
-ELMO_WEIGHTS_PATH = "https://s3-us-west-2.amazonaws.com/a orillennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5" # pylint: disable=line-too-long
+ELMO_WEIGHTS_PATH = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5" # pylint: disable=line-too-long
 
 logger = log.getLogger(__name__)  # pylint: disable=invalid-name
 
