@@ -18,19 +18,6 @@ from models import build_model
 from trainer import MultiTaskTrainer, build_trainer
 from evaluate import evaluate
 import pdb
-
-## Monkey patch for torch 0.3.1
-import torch._utils
-try:
-    torch._utils._rebuild_tensor_v2
-except AttributeError:
-    def _rebuild_tensor_v2(storage, storage_offset, size, stride, requires_grad, backward_hooks):
-        tensor = torch._utils._rebuild_tensor(storage, storage_offset, size, stride)
-        tensor.requires_grad = requires_grad
-        tensor._backward_hooks = backward_hooks
-        return tensor
-    torch._utils._rebuild_tensor_v2 = _rebuild_tensor_v2
-
 def main(arguments):
     ''' Train or load a model. Evaluate on some tasks. '''
     parser = argparse.ArgumentParser(description='')
@@ -192,7 +179,6 @@ def main(arguments):
         log.info("Skipping training.")
         best_epochs = {}
 
-    print("@@@ MULTI_TASK VAL @@@")    
     # train just the classifiers for eval tasks
     for task in eval_tasks:
         pred_layer = getattr(model, "%s_pred_layer" % task.name)
@@ -201,10 +187,9 @@ def main(arguments):
                                                iterator, copy.deepcopy(train_params))
         trainer.train([task], args.task_ordering, 1, args.max_vals, 'percent_tr', 1, to_train,
                       opt_params, schd_params, 1)
-        #layer_path = os.path.join(args.run_dir, task.name, "%s_best.th" % task.name)
-        #layer_path = os.path.join(args.run_dir, "task_best.th")
-        #layer_state = torch.load(layer_path, map_location=device_mapping(args.cuda))
-        #model.load_state_dict(layer_state)
+        layer_path = os.path.join(args.run_dir, task.name, "%s_best.th" % task.name)
+        layer_state = torch.load(layer_path, map_location=device_mapping(args.cuda))
+        model.load_state_dict(layer_state)
 
     # Evaluate: load the different task best models and evaluate them
     # TODO(Alex): put this in evaluate file

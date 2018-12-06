@@ -42,14 +42,12 @@ def build_tasks(args):
     def parse_tasks(task_list):
         '''parse string of tasks'''
         if task_list == 'all':
-            tasks = ['cola', 'sst', 'mrpc']
-            #tasks = ALL_TASKS
+            tasks = ALL_TASKS
         elif task_list == 'none':
             tasks = []
         else:
             #tasks = task_list.split(',')
-            #tasks = ['cola', 'sst', 'mrpc']
-            tasks = ['cola']
+            tasks = ['cola', 'sst', 'mrpc']
         return tasks
     train_task_names = parse_tasks(args.train_tasks)
     eval_task_names = parse_tasks(args.eval_tasks)
@@ -72,7 +70,6 @@ def build_tasks(args):
         vocab = Vocabulary.from_files(vocab_path)
         word_embs = preproc['word_embs']
         for task in tasks:
-            print(task.name)
             train, val, test = preproc[task.name]
             task.train_data = train
             task.val_data = val

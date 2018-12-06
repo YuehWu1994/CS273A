@@ -38,9 +38,10 @@ PATH_TO_COVE = '/Users/Brian/Documents/UCI/CS273A/ML Project/Code/cove/cove'
 sys.path.append(PATH_TO_COVE)
 
 
+
 # Elmo stuff
 ELMO_OPT_PATH = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_options.json" # pylint: disable=line-too-long
-ELMO_WEIGHTS_PATH = "https://s3-us-west-2.amazonaws.com/a orillennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5" # pylint: disable=line-too-long
+ELMO_WEIGHTS_PATH = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5" # pylint: disable=line-too-long
 
 logger = log.getLogger(__name__)  # pylint: disable=invalid-name
 
@@ -218,7 +219,6 @@ class MultiTaskModel(nn.Module):
         else:
             sent_emb = self.sent_encoder(input1)
             logits = pred_layer(sent_emb)
-            #print(logits.shape)
         out = {'logits': logits}
         if label is not None:
             if isinstance(task, (STS14Task, STSBTask)):
@@ -423,7 +423,6 @@ class HeadlessSentEncoder(Model):
             else:
                 sent_embs = elmo_embs['elmo_representations'][0]
         sent_embs = self._dropout(sent_embs)
-        #print(sent_embs.shape)
 
         sent_mask = util.get_text_field_mask(sent).float()
         sent_lstm_mask = sent_mask if self._mask_lstms else None
@@ -435,10 +434,6 @@ class HeadlessSentEncoder(Model):
 
         sent_mask = sent_mask.unsqueeze(dim=-1)
         sent_enc.data.masked_fill_(1 - sent_mask.byte().data, -float('inf'))
-        #print(sent_enc.shape)
-        #print(sent_enc.max(dim=1)[0])
-        #print(sent_enc.max(dim=1)[0].shape)
-        # 64 2048
         return sent_enc.max(dim=1)[0]
 
 class HeadlessPairAttnEncoder(Model):

@@ -130,7 +130,7 @@ class MultiTaskTrainer:
         if self._cuda_device >= 0:
             self._model = self._model.cuda(self._cuda_device)
 
-    def _check_history(self, metric_history, task_infos, cur_score, should_decrease=False):
+    def _check_history(self, metric_history, cur_score, should_decrease=False):
         '''
         Given a task, the history of the performance on that task,
         and the current score, check if current score is
@@ -210,23 +210,8 @@ class MultiTaskTrainer:
                 n_batches_per_pass = int(bpp_base * bpps[task_idx])
             task_info['n_batches_per_pass'] = n_batches_per_pass
             task_info['n_val_batches'] = n_val_batches
-            # print(optimizer_params)
-            # print(type(optimizer_params))
-            # print(optimizer_params['lr'])
-            # print(optimizer_params['weight_decay'])
-            #print(list(parameters))
-            print('parameters is a ',type(parameters),'\n=>')
-            #print([(name,param) for name, param in list(parameters)])
-            p = []
-            for parameter in parameters:
-                if(not isinstance(parameter, tuple)):
-                    parameter = ("_", parameter)
-                p.append(parameter)
-
-            # task_info['optimizer'] = Optimizer.from_params(parameters,
-            #                                                 copy.deepcopy(optimizer_params))
-
-            task_info['optimizer'] = Optimizer.from_params(p, copy.deepcopy(optimizer_params))
+            task_info['optimizer'] = Optimizer.from_params(parameters,
+                                                           copy.deepcopy(optimizer_params))
             task_info['scheduler'] = LearningRateScheduler.from_params(task_info['optimizer'],
                                                                        copy.deepcopy(scheduler_params))
             task_info['stopped'] = False
@@ -382,7 +367,7 @@ class MultiTaskTrainer:
                         metric_history = metric_infos[task.val_metric]['hist']
                         metric_history.append(this_epoch_metric)
                         is_best_so_far, out_of_patience = \
-                                self._check_history(metric_history, task_infos, this_epoch_metric, 
+                                self._check_history(metric_history, this_epoch_metric,
                                                     task.val_metric_decreases)
                         if is_best_so_far:
                             logger.info("Best model found for %s.", task.name)
@@ -415,7 +400,7 @@ class MultiTaskTrainer:
                     metric_history = metric_infos[metric]['hist']
                     metric_history.append(this_epoch_metric)
                     is_best_so_far, out_of_patience = \
-                            self._check_history(metric_history, task_infos, this_epoch_metric)
+                            self._check_history(metric_history, this_epoch_metric)
                     if is_best_so_far:
                         logger.info("Best model found for %s.", task)
                         metric_infos[metric]['best'] = (epoch, all_val_metrics)
@@ -496,13 +481,8 @@ class MultiTaskTrainer:
             be copied to a "best.th" file. The value of this flag should
             be based on some validation metric computed by your model.
         """
-        
-        # #model_path = os.path.join(self._serialization_dir, "task_best.th".format(task))
-        # model_path = os.path.join(self._serialization_dir, "task_best.th")
-        # model_state = self._model.state_dict()
-        # torch.save(model_state, model_path)
-
         epoch = training_state["pass"]
+        #model_path = os.path.join(self._serialization_dir, "{}_best.th".format(task))
         model_path = os.path.join(self._serialization_dir, "model_state_epoch_{}.th".format(epoch))
         model_state = self._model.state_dict()
         torch.save(model_state, model_path)
@@ -516,8 +496,8 @@ class MultiTaskTrainer:
             task_states[task_name]['optimizer'] = task_info['optimizer'].state_dict()
             task_states[task_name]['scheduler'] = task_info['scheduler']
             sched = task_info['scheduler']
-            sched_params = {} #{'best': sched.best, 'num_bad_epochs': sched.num_bad_epochs,
-                              # 'cooldown_counter': sched.cooldown_counter}
+            sched_params = {'best': sched.best, 'num_bad_epochs': sched.num_bad_epochs,
+                            'cooldown_counter': sched.cooldown_counter}
             task_states[task_name]['scheduler'] = sched_params
             task_states[task_name]['total_batches_trained'] = task_info['total_batches_trained']
             task_states[task_name]['stopped'] = task_info['stopped']
@@ -681,7 +661,7 @@ class SamplingMultiTaskTrainer:
         if self._cuda_device >= 0:
             self._model = self._model.cuda(self._cuda_device)
 
-    def _check_history(self, metric_history, task_infos, cur_score, should_decrease=False):
+    def _check_history(self, metric_history, cur_score, should_decrease=False):
         '''
         Given a task, the history of the performance on that task,
         and the current score, check if current score is
@@ -696,8 +676,6 @@ class SamplingMultiTaskTrainer:
             best_so_far = False
 
         out_of_patience = False
-
-
         if len(metric_history) > patience:
             if should_decrease:
                 out_of_patience = max(metric_history[-patience:]) <= cur_score
@@ -719,7 +697,6 @@ class SamplingMultiTaskTrainer:
                 tr_generator = iterator(task.train_data, num_epochs=None, cuda_device=self._cuda_device)
             else:
                 tr_generator = iterator(task.train_data, num_epochs=None)
-            # tr_generator = iterator(task.train_data, num_epochs=None)
             task_info['n_tr_batches'] = iterator.get_num_batches(task.train_data)
             task_info['tr_generator'] = tr_generator
             task_info['loss'] = 0.0
@@ -961,7 +938,7 @@ class SamplingMultiTaskTrainer:
             metric_history = metric_infos[metric]['hist']
             metric_history.append(this_epoch_metric)
             is_best_so_far, out_of_patience = \
-                    self._check_history(metric_history, task_infos, this_epoch_metric)
+                    self._check_history(metric_history, this_epoch_metric)
             if is_best_so_far:
                 logger.info("Best model found for %s.", task)
                 metric_infos[metric]['best'] = (epoch, all_val_metrics)
@@ -1070,7 +1047,6 @@ class SamplingMultiTaskTrainer:
             task_states['global']['scheduler'] = None
         torch.save(task_states, os.path.join(self._serialization_dir,
                                              "task_state_epoch_{}.th".format(epoch)))
-        print(self._serialization_dir)
 
         metric_states = {}
         for metric_name, metric_info in self._metric_infos.items():
