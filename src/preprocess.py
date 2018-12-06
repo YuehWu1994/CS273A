@@ -42,13 +42,14 @@ def build_tasks(args):
     def parse_tasks(task_list):
         '''parse string of tasks'''
         if task_list == 'all':
-            tasks = ALL_TASKS
+            tasks = ['cola', 'sst', 'mrpc']
+            #tasks = ALL_TASKS
         elif task_list == 'none':
             tasks = []
         else:
-            #tasks = task_list.split(',')
+            tasks = task_list.split(',')
             #tasks = ['cola', 'sst', 'mrpc']
-            tasks = ['mrpc']
+            #tasks = ['mrpc']
         return tasks
     train_task_names = parse_tasks(args.train_tasks)
     eval_task_names = parse_tasks(args.eval_tasks)
