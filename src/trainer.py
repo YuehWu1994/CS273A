@@ -497,10 +497,10 @@ class MultiTaskTrainer:
             be based on some validation metric computed by your model.
         """
         
-        #model_path = os.path.join(self._serialization_dir, "task_best.th".format(task))
-        model_path = os.path.join(self._serialization_dir, "task_best.th")
-        model_state = self._model.state_dict()
-        torch.save(model_state, model_path)
+        # #model_path = os.path.join(self._serialization_dir, "task_best.th".format(task))
+        # model_path = os.path.join(self._serialization_dir, "task_best.th")
+        # model_state = self._model.state_dict()
+        # torch.save(model_state, model_path)
 
         epoch = training_state["pass"]
         model_path = os.path.join(self._serialization_dir, "model_state_epoch_{}.th".format(epoch))
