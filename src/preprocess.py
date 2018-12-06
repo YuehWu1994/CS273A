@@ -72,6 +72,7 @@ def build_tasks(args):
         vocab = Vocabulary.from_files(vocab_path)
         word_embs = preproc['word_embs']
         for task in tasks:
+            print(task.name)
             train, val, test = preproc[task.name]
             task.train_data = train
             task.val_data = val
