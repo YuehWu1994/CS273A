@@ -23,8 +23,8 @@ LOAD_TASKS=1
 LOAD_PREPROC=1
 load_epoch=-1
 
-train_tasks='all' # cola sst mrpc 
-eval_tasks='all'
+train_tasks=sst # cola sst mrpc 
+eval_tasks=all
 CLASSIFIER=mlp
 d_hid_cls=256 #d_hid_cls=512
 max_seq_len=40
