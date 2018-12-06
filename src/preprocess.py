@@ -42,7 +42,8 @@ def build_tasks(args):
     def parse_tasks(task_list):
         '''parse string of tasks'''
         if task_list == 'all':
-            tasks = ['cola', 'sst', 'mrpc']
+            #tasks = ['cola', 'sst', 'mrpc']
+            tasks = ['sst']
             #tasks = ALL_TASKS
         elif task_list == 'none':
             tasks = []
