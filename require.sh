@@ -10,8 +10,8 @@ cd glove
 
 mkdir glove.840B
 cd glove.840B
-wget http://nlp.stanford.edu/data/glove.840B.zi
-unzip glove.840Bp
+wget http://nlp.stanford.edu/data/glove.840B.300d.zip
+unzip glove.840B.300d.zip
 cd ../..
 
 
