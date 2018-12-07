@@ -337,7 +337,7 @@ class MultiTaskTrainer:
                 n_examples_overall = 0.0
                 should_save = False
                 all_val_metrics = {"macro_accuracy":0.0, "micro_accuracy":0.0}
-                #self._model.eval()
+                self._model.eval()
                 for task_idx, task in enumerate(tasks):
                     n_examples = 0.0
                     n_val_batches = task_infos[task.name]['n_val_batches']
@@ -355,7 +355,7 @@ class MultiTaskTrainer:
                         task_metrics["%s_loss" % task.name] = \
                                 float(val_losses[task_idx] / batch_num)
                         description = self._description_from_metrics(task_metrics)
-                        #val_generator_tqdm.set_description(description)
+                        val_generator_tqdm.set_description(description)
                         if self._no_tqdm and \
                                 time.time() - task_info['last_log'] > self._log_interval:
                             logger.info("Batch %d/%d: %s", batch_num, n_val_batches, description)
@@ -400,11 +400,11 @@ class MultiTaskTrainer:
                 all_val_metrics['micro_accuracy'] /= n_examples_overall
                 all_val_metrics['macro_accuracy'] /= n_tasks
                 logger.info("***** Pass %d / Epoch %d *****", n_pass, epoch)
-                for name, value in all_val_metrics.items():
-                    logger.info("Statistic: %s", name)
-                    if name in all_tr_metrics:
-                        logger.info("\ttraining: %3f", all_tr_metrics[name])
-                    logger.info("\tvalidation: %3f", value)
+                # for name, value in all_val_metrics.items():
+                #     logger.info("Statistic: %s", name)
+                #     if name in all_tr_metrics:
+                #         logger.info("\ttraining: %3f", all_tr_metrics[name])
+                #     logger.info("\tvalidation: %3f", value)
 
                 # Track macro and micro
                 for task in ['micro', 'macro']:
@@ -857,11 +857,11 @@ class SamplingMultiTaskTrainer:
                         self._check_stop(epoch, tasks, task_infos, metric_infos, g_optimizer)
 
                 # Log results
-                for name, value in all_val_metrics.items():
-                    logger.info("Statistic: %s", name)
-                    if name in all_tr_metrics:
-                        logger.info("\ttraining: %3f", all_tr_metrics[name])
-                    logger.info("\tvalidation: %3f", value)
+                # for name, value in all_val_metrics.items():
+                #     logger.info("Statistic: %s", name)
+                #     if name in all_tr_metrics:
+                #         logger.info("\ttraining: %3f", all_tr_metrics[name])
+                #     logger.info("\tvalidation: %3f", value)
 
                 self._metric_infos = metric_infos
                 self._task_infos = task_infos
@@ -895,7 +895,7 @@ class SamplingMultiTaskTrainer:
 
     def _validate(self, epoch, tasks, task_infos, metric_infos, iterator, g_scheduler):
         ''' Validate on all tasks and return the results and whether to save this epoch or not '''
-        #self._model.eval()
+        self._model.eval()
         all_val_metrics = {("%s_loss" % task.name): 0.0 for task in tasks}
         all_val_metrics["macro_accuracy"] = 0.0
         all_val_metrics["micro_accuracy"] = 0.0

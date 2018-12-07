@@ -60,7 +60,7 @@ def evaluate(model, tasks, iterator, cuda_device, split="val"):
             task_metrics = task.get_metrics()
             description = ', '.join(["%s_%s: %.2f" % (task.name, name, value) for name, value in
                                      task_metrics.items()]) + " ||"
-            #generator_tqdm.set_description(description)
+            generator_tqdm.set_description(description)
             n_examples += batch['label'].size()[0]
             if isinstance(task, (STSBTask, STS14Task)):
                 preds, _ = out['logits'].max(dim=1)
