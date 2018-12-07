@@ -33,8 +33,8 @@ VOCAB_SIZE=20000 #VOCAB_SIZE=30000
 #WORD_EMBS_FILE="../glove/glove.6B/glove.6B.50d.txt"
 WORD_EMBS_FILE="../glove/glove.840B/glove.840B.300d.txt"
 
-#d_word=300
-d_word=50
+d_word=300
+#d_word=50
 d_hid=256 #d_hid=512
 glove=1
 ELMO=0
