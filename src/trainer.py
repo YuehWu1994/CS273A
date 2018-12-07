@@ -337,7 +337,7 @@ class MultiTaskTrainer:
                 n_examples_overall = 0.0
                 should_save = False
                 all_val_metrics = {"macro_accuracy":0.0, "micro_accuracy":0.0}
-                self._model.eval()
+                #self._model.eval()
                 for task_idx, task in enumerate(tasks):
                     n_examples = 0.0
                     n_val_batches = task_infos[task.name]['n_val_batches']
@@ -895,7 +895,7 @@ class SamplingMultiTaskTrainer:
 
     def _validate(self, epoch, tasks, task_infos, metric_infos, iterator, g_scheduler):
         ''' Validate on all tasks and return the results and whether to save this epoch or not '''
-        self._model.eval()
+        #self._model.eval()
         all_val_metrics = {("%s_loss" % task.name): 0.0 for task in tasks}
         all_val_metrics["macro_accuracy"] = 0.0
         all_val_metrics["micro_accuracy"] = 0.0
