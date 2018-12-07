@@ -15,7 +15,7 @@ EXP_NAME="debug"
 RUN_NAME="debug"
 GPUID=0
 SEED=19
-no_tqdm=0
+no_tqdm=1
 
 SHOULD_TRAIN=0
 LOAD_MODEL=0
