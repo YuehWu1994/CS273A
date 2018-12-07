@@ -17,7 +17,7 @@ GPUID=0
 SEED=19
 no_tqdm=0
 
-SHOULD_TRAIN=0
+SHOULD_TRAIN=1
 LOAD_MODEL=0
 LOAD_TASKS=1
 LOAD_PREPROC=1
@@ -36,10 +36,10 @@ WORD_EMBS_FILE="../glove/glove.840B/glove.840B.300d.txt"
 d_word=300
 #d_word=50
 d_hid=256 #d_hid=512
-glove=1
-ELMO=0
-deep_elmo=0
-elmo_no_glove=0
+glove=0
+ELMO=1
+deep_elmo=1
+elmo_no_glove=1
 COVE=0
 
 PAIR_ENC="simple"
@@ -66,7 +66,7 @@ weighting_method="proportional"  #weighting_method="uniform"
 scaling_method='none'
 
 # Reproduce Test
-train_ratio=1
+train_ratio=0.5
 
 while getopts 'ikmn:r:S:s:tvh:l:L:o:T:E:O:b:H:p:edcgP:qB:V:M:D:C:X:GI:N:y:K:W:' flag; do
     case "${flag}" in
