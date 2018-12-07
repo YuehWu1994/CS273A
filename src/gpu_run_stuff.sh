@@ -30,15 +30,16 @@ d_hid_cls=256 #d_hid_cls=512
 max_seq_len=40
 VOCAB_SIZE=20000 #VOCAB_SIZE=30000
 #WORD_EMBS_FILE="${SCRATCH_PREFIX}/raw_data/GloVe/glove.840B.300d.txt"
-WORD_EMBS_FILE="../glove/glove.6B/glove.6B.50d.txt"
+#WORD_EMBS_FILE="../glove/glove.6B/glove.6B.50d.txt"
+WORD_EMBS_FILE="../glove/glove.840B/glove.840B.300d.txt"
 
 #d_word=300
 d_word=50
 d_hid=256 #d_hid=512
-glove=0
-ELMO=1
-deep_elmo=1
-elmo_no_glove=1
+glove=1
+ELMO=0
+deep_elmo=0
+elmo_no_glove=0
 COVE=0
 
 PAIR_ENC="simple"
