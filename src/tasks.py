@@ -354,6 +354,7 @@ class CoLATask(Task):
         '''Load the data'''
         tr_data = load_tsv(os.path.join(path, "train.tsv"), max_seq_len,
                            s1_idx=3, s2_idx=None, targ_idx=1)
+        print("traindata_size is", tr_data)
         val_data = load_tsv(os.path.join(path, "dev.tsv"), max_seq_len,
                             s1_idx=3, s2_idx=None, targ_idx=1)
         te_data = load_tsv(os.path.join(path, 'test.tsv'), max_seq_len,

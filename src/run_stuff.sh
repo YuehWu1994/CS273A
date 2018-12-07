@@ -64,6 +64,9 @@ TASK_ORDERING="random"
 weighting_method="proportional"  #weighting_method="uniform"
 scaling_method='none'
 
+# Reproduce Test
+train_ratio=1
+
 while getopts 'ikmn:r:S:s:tvh:l:L:o:T:E:O:b:H:p:edcgP:qB:V:M:D:C:X:GI:N:y:K:W:' flag; do
     case "${flag}" in
         P) SCRATCH_PREFIX="${OPTARG}" ;;
@@ -104,6 +107,7 @@ while getopts 'ikmn:r:S:s:tvh:l:L:o:T:E:O:b:H:p:edcgP:qB:V:M:D:C:X:GI:N:y:K:W:' 
         p) patience="${OPTARG}" ;;
         W) weighting_method="${OPTARG}" ;;
         s) scaling_method="${OPTARG}" ;;
+        R) train_ratio="${OPTARG}" ;;
     esac
 done
 
@@ -116,5 +120,5 @@ RUN_DIR="RUN_DIR"
 mkdir -p ${EXP_DIR}
 mkdir -p ${RUN_DIR}
 
-ALLEN_CMD="python main.py --cuda ${GPUID} --random_seed ${SEED} --no_tqdm ${no_tqdm} --log_file ${LOG_PATH} --exp_dir ${EXP_DIR} --run_dir ${RUN_DIR} --train_tasks cola --eval_tasks cola --classifier ${CLASSIFIER} --classifier_hid_dim ${d_hid_cls} --max_seq_len ${max_seq_len} --max_word_v_size ${VOCAB_SIZE} --word_embs_file ${WORD_EMBS_FILE} --train_words ${train_words} --glove ${glove} --elmo ${ELMO} --deep_elmo ${deep_elmo} --elmo_no_glove ${elmo_no_glove} --cove ${COVE} --d_word ${d_word} --d_hid ${d_hid} --n_layers_enc ${N_LAYERS_ENC} --pair_enc ${PAIR_ENC} --n_layers_highway ${n_layers_highway} --batch_size ${BATCH_SIZE} --bpp_method ${BPP_METHOD} --bpp_base ${BPP_BASE} --optimizer ${OPTIMIZER} --lr ${LR} --min_lr ${min_lr} --lr_decay_factor ${LR_DECAY} --task_patience ${task_patience} --patience ${patience} --weight_decay ${WEIGHT_DECAY} --dropout ${dropout} --val_interval ${VAL_INTERVAL} --max_vals ${MAX_VALS} --task_ordering ${TASK_ORDERING} --weighting_method ${weighting_method} --scaling_method ${scaling_method} --scheduler_threshold ${SCHED_THRESH} --load_model ${LOAD_MODEL} --load_tasks ${LOAD_TASKS} --load_preproc ${LOAD_PREPROC} --should_train ${SHOULD_TRAIN} --load_epoch ${load_epoch}"
+ALLEN_CMD="python main.py --cuda ${GPUID} --random_seed ${SEED} --no_tqdm ${no_tqdm} --log_file ${LOG_PATH} --exp_dir ${EXP_DIR} --run_dir ${RUN_DIR} --train_tasks cola --eval_tasks cola --classifier ${CLASSIFIER} --classifier_hid_dim ${d_hid_cls} --max_seq_len ${max_seq_len} --max_word_v_size ${VOCAB_SIZE} --word_embs_file ${WORD_EMBS_FILE} --train_words ${train_words} --glove ${glove} --elmo ${ELMO} --deep_elmo ${deep_elmo} --elmo_no_glove ${elmo_no_glove} --cove ${COVE} --d_word ${d_word} --d_hid ${d_hid} --n_layers_enc ${N_LAYERS_ENC} --pair_enc ${PAIR_ENC} --n_layers_highway ${n_layers_highway} --batch_size ${BATCH_SIZE} --bpp_method ${BPP_METHOD} --bpp_base ${BPP_BASE} --optimizer ${OPTIMIZER} --lr ${LR} --min_lr ${min_lr} --lr_decay_factor ${LR_DECAY} --task_patience ${task_patience} --patience ${patience} --weight_decay ${WEIGHT_DECAY} --dropout ${dropout} --val_interval ${VAL_INTERVAL} --max_vals ${MAX_VALS} --task_ordering ${TASK_ORDERING} --weighting_method ${weighting_method} --scaling_method ${scaling_method} --scheduler_threshold ${SCHED_THRESH} --load_model ${LOAD_MODEL} --load_tasks ${LOAD_TASKS} --load_preproc ${LOAD_PREPROC} --should_train ${SHOULD_TRAIN} --load_epoch ${load_epoch} --train_ratio ${train_ratio}"
 eval ${ALLEN_CMD}

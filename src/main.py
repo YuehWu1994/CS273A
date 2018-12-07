@@ -113,6 +113,9 @@ def main(arguments):
     parser.add_argument('--task_ordering', help='Method for ordering tasks', type=str, default='given',
                         choices=['given', 'random', 'random_per_pass', 'small_to_large', 'large_to_small'])
 
+    # Reproduce Test
+    parser.add_argument('--train_ratio', help='Ratio of original training set to be used', type=float, default=1)
+
     args = parser.parse_args(arguments)
 
     # Logistics #

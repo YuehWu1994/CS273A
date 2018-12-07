@@ -6,6 +6,7 @@ import ipdb as pdb # pylint disable=unused-import
 import _pickle as pkl
 import numpy as np
 import torch
+import math
 
 from allennlp.data import Instance, Vocabulary, Token
 from allennlp.data.fields import TextField, LabelField
@@ -73,9 +74,8 @@ def build_tasks(args):
         vocab = Vocabulary.from_files(vocab_path)
         word_embs = preproc['word_embs']
         for task in tasks:
-            print(task.name)
             train, val, test = preproc[task.name]
-            task.train_data = train
+            task.train_data = train[:math.floor(len(train)*args.train_ratio)]
             task.val_data = val
             task.test_data = test
         log.info("\tFinished building vocab. Using %d words",
@@ -89,6 +89,7 @@ def build_tasks(args):
         preproc = {'word_embs': word_embs}
         for task in tasks:
             train, val, test = process_task(task, token_indexer, vocab)
+            task.train_data = train[:math.floor(len(train)*args.train_ratio)]
             task.train_data = train
             task.val_data = val
             task.test_data = test
