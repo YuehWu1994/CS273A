@@ -297,7 +297,7 @@ class MultiTaskTrainer:
                     task_metrics = task.get_metrics()
                     task_metrics["%s_loss" % task.name] = float(tr_loss / n_batches_since_val)
                     description = self._description_from_metrics(task_metrics)
-                    tr_generator.set_description(description)
+                    #tr_generator.set_description(description)
 
                     # Training logging
                     if self._no_tqdm and time.time() - task_info['last_log'] > self._log_interval:
@@ -355,7 +355,7 @@ class MultiTaskTrainer:
                         task_metrics["%s_loss" % task.name] = \
                                 float(val_losses[task_idx] / batch_num)
                         description = self._description_from_metrics(task_metrics)
-                        val_generator_tqdm.set_description(description)
+                        #val_generator_tqdm.set_description(description)
                         if self._no_tqdm and \
                                 time.time() - task_info['last_log'] > self._log_interval:
                             logger.info("Batch %d/%d: %s", batch_num, n_val_batches, description)
