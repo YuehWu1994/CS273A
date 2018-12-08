@@ -21,7 +21,7 @@ from allennlp.modules.token_embedders import Embedding, TokenCharactersEncoder
 from allennlp.modules.similarity_functions import LinearSimilarity, DotProductSimilarity
 from allennlp.modules.seq2vec_encoders import BagOfEmbeddingsEncoder, CnnEncoder
 from allennlp.modules.seq2seq_encoders import Seq2SeqEncoder as s2s_e
-from allennlp.modules.elmo import Elmo, _ElmoCharacterEncoder
+from Elmo import Elmo
 
 from tasks import STS14Task, STSBTask, CoLATask
 from scipy.stats import pearsonr, spearmanr
@@ -418,9 +418,8 @@ class HeadlessSentEncoder(Model):
             sent_cove_embs = self._cove(sent['words'], sent_lens)
             sent_embs = torch.cat([sent_embs, sent_cove_embs], dim=-1)
         if self._elmo is not None:
-            import pdb;pdb.set_trace()
             elmo_embs = self._elmo(sent['elmo'])
-            
+
             if "words" in sent:
                 sent_embs = torch.cat([sent_embs, elmo_embs['elmo_representations'][0]], dim=-1)
             else:
