@@ -21,7 +21,7 @@ from allennlp.modules.token_embedders import Embedding, TokenCharactersEncoder
 from allennlp.modules.similarity_functions import LinearSimilarity, DotProductSimilarity
 from allennlp.modules.seq2vec_encoders import BagOfEmbeddingsEncoder, CnnEncoder
 from allennlp.modules.seq2seq_encoders import Seq2SeqEncoder as s2s_e
-from allennlp.modules.elmo import Elmo
+from allennlp.modules.elmo import Elmo, _ElmoCharacterEncoder
 
 from tasks import STS14Task, STSBTask, CoLATask
 from scipy.stats import pearsonr, spearmanr
@@ -39,7 +39,7 @@ sys.path.append(PATH_TO_COVE)
 
 
 # Elmo stuff
-ELMO_OPT_PATH = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_options.json" # pylint: disable=line-too-long
+ELMO_OPT_PATH = "./elmo_2x4096_512_2048cnn_2xhighway_options.json" # pylint: disable=line-too-long
 ELMO_WEIGHTS_PATH = "https://s3-us-west-2.amazonaws.com/allennlp/models/elmo/2x4096_512_2048cnn_2xhighway/elmo_2x4096_512_2048cnn_2xhighway_weights.hdf5" # pylint: disable=line-too-long
 
 logger = log.getLogger(__name__)  # pylint: disable=invalid-name
@@ -85,7 +85,8 @@ def build_model(args, vocab, pretrained_embs, tasks):
             log.info("\tUsing GLoVe embeddings!")
             d_inp_phrase += d_word
         elmo = Elmo(options_file=ELMO_OPT_PATH, weight_file=ELMO_WEIGHTS_PATH,
-                    num_output_representations=n_reps)
+                 num_output_representations=n_reps)
+        #elmo=_ElmoCharacterEncoder(options_file=ELMO_OPT_PATH, weight_file=ELMO_WEIGHTS_PATH)
         d_inp_phrase += 1024
     else:
         elmo = None
@@ -418,6 +419,7 @@ class HeadlessSentEncoder(Model):
             sent_embs = torch.cat([sent_embs, sent_cove_embs], dim=-1)
         if self._elmo is not None:
             elmo_embs = self._elmo(sent['elmo'])
+            
             if "words" in sent:
                 sent_embs = torch.cat([sent_embs, elmo_embs['elmo_representations'][0]], dim=-1)
             else:
