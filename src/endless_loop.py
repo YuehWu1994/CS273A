@@ -1,3 +1,7 @@
 import time
+
+i=0;
 while True:
-    time.sleep(0.2)
+    print(i,"minutes after finish")
+    i+=1
+    time.sleep(60)
