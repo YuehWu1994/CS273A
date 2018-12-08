@@ -66,7 +66,7 @@ weighting_method="proportional"  #weighting_method="uniform"
 scaling_method='none'
 
 # Reproduce Test
-train_ratio=0.5
+train_ratio=0.3
 
 while getopts 'ikmn:r:S:s:tvh:l:L:o:T:E:O:b:H:p:edcgP:qB:V:M:D:C:X:GI:N:y:K:W:' flag; do
     case "${flag}" in
