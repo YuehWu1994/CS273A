@@ -418,6 +418,7 @@ class HeadlessSentEncoder(Model):
             sent_cove_embs = self._cove(sent['words'], sent_lens)
             sent_embs = torch.cat([sent_embs, sent_cove_embs], dim=-1)
         if self._elmo is not None:
+            import pdb;pdb.set_trace()
             elmo_embs = self._elmo(sent['elmo'])
             
             if "words" in sent:
