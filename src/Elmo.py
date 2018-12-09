@@ -467,7 +467,7 @@ class _ElmoBiLm(torch.nn.Module):
         self._elmo_lstm.load_weights(weight_file)
         # Number of representation layers including context independent layer
         self.num_layers = options['lstm']['n_layers'] + 1
-
+        print('<-->','num reperasentation layers including context independent layer',self.num_layers,'<-->')
     def get_output_dim(self):
         return 2 * self._token_embedder.get_output_dim()
 
@@ -495,14 +495,14 @@ class _ElmoBiLm(torch.nn.Module):
         token_embedding = self._token_embedder(inputs)
         type_representation = token_embedding['token_embedding']
         mask = token_embedding['mask']
-        lstm_outputs = self._elmo_lstm(type_representation, mask)
+        #lstm_outputs = self._elmo_lstm(type_representation, mask)
 
         # Prepare the output.  The first layer is duplicated.
         output_tensors = [
                 torch.cat([type_representation, type_representation], dim=-1)
         ]
-        for layer_activations in torch.chunk(lstm_outputs, lstm_outputs.size(0), dim=0):
-            output_tensors.append(layer_activations.squeeze(0))
+        # for layer_activations in torch.chunk(lstm_outputs, lstm_outputs.size(0), dim=0):
+        #    output_tensors.append(layer_activations.squeeze(0))
 
         return {
                 'activations': output_tensors,
