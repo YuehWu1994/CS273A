@@ -1,4 +1,4 @@
-mport json
+import json
 import logging
 from typing import Union, List, Dict, Any
 import warnings
@@ -110,7 +110,7 @@ class Elmo(torch.nn.Module):
         self._keep_sentence_boundaries = keep_sentence_boundaries
         self._dropout = Dropout(p=dropout)
         self._scalar_mixes: Any = []
-        for k in range(num_output?!?jedi=0, _representations):?!? (*_*mixture_size: int*_*, do_layer_norm: bool = False, initial_scalar_parameters: List[float] = None, trainable: bool = True) ?!?jedi?!?
+        for k in range(num_output_representations):
             scalar_mix = ScalarMix(
                     self._elmo_lstm.num_layers,
                     do_layer_norm=do_layer_norm,
