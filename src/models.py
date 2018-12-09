@@ -21,7 +21,7 @@ from allennlp.modules.token_embedders import Embedding, TokenCharactersEncoder
 from allennlp.modules.similarity_functions import LinearSimilarity, DotProductSimilarity
 from allennlp.modules.seq2vec_encoders import BagOfEmbeddingsEncoder, CnnEncoder
 from allennlp.modules.seq2seq_encoders import Seq2SeqEncoder as s2s_e
-from allennlp.modules.elmo import Elmo
+from Elmo import Elmo
 
 from tasks import STS14Task, STSBTask, CoLATask
 from scipy.stats import pearsonr, spearmanr
