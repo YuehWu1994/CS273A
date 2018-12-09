@@ -8,11 +8,11 @@ unzip glove.6B.zip
 cd ..
 cd ..
 
-pip install ipdb
-pip install torch==0.4.1
-pip install allennlp==0.4.3
-pip install tensorboardX
+#pip install ipdb
+#pip install torch==0.3.1
+#pip install allennlp==0.4.3
+#pip install tensorboardX
 
-
-cd src/
-python download_nltk_punk.py
+#
+#cd src/
+#python download_nltk_punk.py
