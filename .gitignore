@@ -4,6 +4,7 @@
 *.tsv
 .idea/
 *.th
+*.png
 *.pkl
 *.txt
 *.jsonl
