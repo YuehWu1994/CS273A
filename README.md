@@ -1,8 +1,8 @@
 # Introduction
 
-This repository is our submission to the ICLR Reproducibility Challenge and course project of Machine Learning(CS273A) at UCI. 
+This repository is our submission to the ICLR Reproducibility Challenge and course project of Machine Learning(CS273A) at University of California, Irvine. 
 
-For more detail about our methodology and result, please refer to our report. As for source code of original works, please refer to https://github.com/nyu-mll/GLUE-baselines.
+For more detail about our methodology and result, please refer to our report. As for source code of the original work, please refer to https://github.com/nyu-mll/GLUE-baselines.
 
 ## Dependency
 
