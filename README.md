@@ -9,7 +9,7 @@ The project depends on the GloVE and glue_data. Please download the GloVE data e
 
 ## How to Run
 
-Simply execute the shell script file locate in src/run_stuff.sh
+Simply execute the shell script file locate in src/run_stuff.sh. If you have GPU, please execute src/gpu_run_stuff.sh
 
 If necessary, please modify the relative data path
 
