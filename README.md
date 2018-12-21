@@ -1,6 +1,8 @@
-# CS 273A ICLR
+# Introduction
 
-The project is forked from GLUE-baselines. For more detail, please refer to https://github.com/nyu-mll/GLUE-baselines.
+This repository is our submission to the ICLR Reproducibility Challenge and course project of Machine Learning(CS273A) at UCI. 
+
+For more detail about our methodology and result, please refer to our report. As for source code of original works, please refer to https://github.com/nyu-mll/GLUE-baselines.
 
 ## Dependency
 
